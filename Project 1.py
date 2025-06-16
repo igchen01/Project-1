@@ -92,11 +92,10 @@ map_html = m._repr_html_()
 tab1, tab2, tab3 = st.tabs(["Passengers", "Flights", "Map"])
 
 with tab1:
-    st.plotly_chart(fig1, use_container_width=True)
+    st.plotly_chart(fig1, use_container_width=True, key="passenger_chart")
 
 with tab2:
-    st.plotly_chart(fig2, use_container_width=True)
+    st.plotly_chart(fig2, use_container_width=True, key="flights_chart")
 
 with tab3:
     components.html(map_html, height=500, width=700)
-    
