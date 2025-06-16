@@ -10,7 +10,7 @@ from streamlit.components.v1 import html
 df = pd.read_csv("Airports_T.csv")
 
 # Streamlit App Title
-st.title("📊 Airports and Air Travel of US")
+st.title("📊 Airports and City Population of US")
 
 # Sidebar year slider
 selected_year = st.sidebar.slider(
