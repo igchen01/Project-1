@@ -4,13 +4,53 @@ import pandas as pd
 import math
 import folium
 from shapely.geometry import Point, LineString, Polygon
+import streamlit.components.v1 as components
 from streamlit.components.v1 import html
 
+
 # Load data
-df = pd.read_csv("Airports_T.csv")
+df = pd.read_csv("Airports_P.csv")
+data = pd.read_csv("Airports_T.csv")
+
+# Time series of passengers
+monthly_flights = data.groupby('Fly_date')['Flights'].sum().reset_index()
+monthly_flights['Fly_date'] = pd.to_datetime(monthly_flights['Fly_date'])
+monthly_flights = monthly_flights.sort_values(by='Fly_date')
+
+monthly_flights['Rolling_Avg'] = monthly_flights['Flights'].rolling(window=3).mean()
+
+fig1 = px.line(
+    monthly_flights,
+    x='Fly_date',
+    y=['Flights', 'Rolling_Avg'],
+    title='Monthly Flights with Rolling Average (3 months)',
+    color_discrete_map={
+        'Flights': 'blue',        # or another color of your choice
+        'Rolling_Avg': 'yellow'
+    }
+)
+
+# Time series of Flights
+monthly_flights = data.groupby('Fly_date')['Flights'].sum().reset_index()
+monthly_flights['Fly_date'] = pd.to_datetime(monthly_flights['Fly_date'])
+monthly_flights = monthly_flights.sort_values(by='Fly_date')
+
+monthly_flights['Rolling_Avg'] = monthly_flights['Flights'].rolling(window=3).mean()
+
+fig2 = px.line(
+    monthly_flights,
+    x='Fly_date',
+    y=['Flights', 'Rolling_Avg'],
+    title='Monthly Flights with Rolling Average (3 months)',
+    color_discrete_map={
+        'Flights': 'blue',        # or another color of your choice
+        'Rolling_Avg': 'yellow'
+    }
+)
+
 
 # Streamlit App Title
-st.title("📊 Airports and City Population of US")
+st.title("📊 Airports and Air Travel of US")
 
 # Sidebar year slider
 selected_year = st.sidebar.slider(
@@ -46,6 +86,17 @@ for _, row in airports.iterrows():
         fill=True,
     ).add_to(m)
 
-# Display map in Streamlit
 map_html = m._repr_html_()
-html(map_html, height=500, width=700)
+
+# Layout - Using Tabs to Display Multiple Plots
+tab1, tab2, tab3 = st.tabs(["Passengers", "Flights", "Map"])
+
+with tab1:
+    st.plotly_chart(fig1, use_container_width=True)
+
+with tab2:
+    st.plotly_chart(fig2, use_container_width=True)
+
+with tab3:
+    components.html(map_html, height=500, width=700)
+    
