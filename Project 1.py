@@ -40,7 +40,7 @@ m = folium.Map(location=[39.8283, -98.5795], zoom_start=4)
 for _, row in airports.iterrows():
     folium.CircleMarker(
         location=[row["Latitude"], row["Longitude"]],
-        radius=math.sqrt(math.sqrt(float(row["Population"])))/5,
+        radius=math.sqrt(math.sqrt(float(row["Population"])))/3,
         popup=f"Airport: {row['Airport']}<br>Population: {row['Population']}",
         color="blue",
         fill=True,
