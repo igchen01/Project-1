@@ -13,7 +13,7 @@ df['Year'] = pd.to_datetime(df['Fly_date']).dt.year
 st.title("📊 Airports and Air Travel of US")
 
 # Create a sidebar filter for selecting a year
-selected_year = st.sidebar.slider("Select Year:", int(df["Year"].min()), int(df["Year"].max()), int(df["Year"].min()), step = 1)
+selected_year = st.sidebar.slider("Select Year:", int(df["Year"].min()), int(df["Year"].max()), int(df["Year"].min()), step = 4)
 
 # Filter data based on the selected year
 filtered_df = df[df.year == selected_year]
