@@ -13,19 +13,20 @@ df = pd.read_csv("Airports_P.csv")
 data = pd.read_csv("Airports_T.csv")
 
 # Time series of passengers
-monthly_flights = data.groupby('Fly_date')['Flights'].sum().reset_index()
-monthly_flights['Fly_date'] = pd.to_datetime(monthly_flights['Fly_date'])
-monthly_flights = monthly_flights.sort_values(by='Fly_date')
+monthly_passengers = data.groupby('Fly_date')['Passengers'].sum().reset_index()
+monthly_passengers['Fly_date'] = pd.to_datetime(monthly_passengers['Fly_date'])
+monthly_passengers = monthly_passengers.sort_values(by='Fly_date')
 
-monthly_flights['Rolling_Avg'] = monthly_flights['Flights'].rolling(window=3).mean()
+monthly_passengers['Rolling_Avg'] = monthly_passengers['Passengers'].rolling(window=3).mean()
 
 fig1 = px.line(
-    monthly_flights,
+    monthly_passengers,
     x='Fly_date',
-    y=['Flights', 'Rolling_Avg'],
+    y=['Passengers', 'Rolling_Avg'],
     title='Monthly Flights with Rolling Average (3 months)',
+    labels={'Fly_date': 'Year', 'Passengers': 'Number of Passengers'}, 
     color_discrete_map={
-        'Flights': 'blue',        # or another color of your choice
+        'Flights': 'blue',        
         'Rolling_Avg': 'yellow'
     }
 )
@@ -42,8 +43,9 @@ fig2 = px.line(
     x='Fly_date',
     y=['Flights', 'Rolling_Avg'],
     title='Monthly Flights with Rolling Average (3 months)',
+    labels={'Fly_date': 'Year', 'Flights': 'Number of Flights'}, 
     color_discrete_map={
-        'Flights': 'blue',        # or another color of your choice
+        'Flights': 'blue',      
         'Rolling_Avg': 'yellow'
     }
 )
