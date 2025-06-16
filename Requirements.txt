@@ -6,3 +6,4 @@ geopandas
 math
 matplotlib
 shapely
+streamlit
