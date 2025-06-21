@@ -9,8 +9,6 @@ import matplotlib.pyplot as plt
 from shapely.geometry import Point, LineString, Polygon
 import streamlit as st
 
-pip install --upgrade pip
-
 
 #Title of the app
 st.title("Airline A Dashboard")
