@@ -140,6 +140,6 @@ for _, row in airports.iterrows():
         fill=True,
     ).add_to(m)
 
+st.subheader("Map of US airports")
 map_html = m._repr_html_()
-#components.html(map_html, height=500, width=700)
 html(map_html, height=500, width=700)
