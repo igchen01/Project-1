@@ -16,9 +16,9 @@ st.write("Analysis of Airline A data to determine potential upgrade of existing 
 
 #Data reading
 
-df = pd.read_csv("Airports_P 1.csv")
-dt = pd.read_csv("Airports_T 1.csv")
-dd = pd.read_csv("Airports_D.csv")
+df = pd.read_csv("Airports_P.csv")
+dt = pd.read_csv("Airports_T.csv")
+#dd = pd.read_csv("Airports_D.csv")
 
 #Forcasting the time series for number of flights
 
