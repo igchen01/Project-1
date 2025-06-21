@@ -105,6 +105,11 @@ st.subheader("Airline A Passenger Forecast")
 st.pyplot(plt)
 plt.clf()
 
+
+
+import streamlit.components.v1 as components
+from streamlit.components.v1 import html
+
 # Sidebar year slider
 selected_year = st.sidebar.slider(
     "Select Year:",
