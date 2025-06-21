@@ -3,7 +3,6 @@ plotly
 folium
 streamlit
 shapely
-calendar
 numpy
 matplotlib
 statsmodels
