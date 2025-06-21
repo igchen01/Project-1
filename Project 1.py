@@ -20,6 +20,24 @@ df = pd.read_csv("Airports_P.csv")
 dt = pd.read_csv("Airports_T.csv")
 #dd = pd.read_csv("Airports_D.csv")
 
+
+monthly_flights = dt.groupby('Fly_date')['Flights'].sum().reset_index()
+monthly_flights['Fly_date'] = pd.to_datetime(monthly_flights['Fly_date'])
+monthly_flights = monthly_flights.sort_values(by='Fly_date')
+monthly_flights['Rolling_Avg'] = monthly_flights['Flights'].rolling(window=3).mean()
+
+#Create a second line chart
+fig2 = px.line(
+    monthly_flights,
+    x='Fly_date',
+    y=['Flights', 'Rolling_Avg'],
+    labels={'Fly_date': 'Year', 'Flights': 'Number of Flights'},
+    color_discrete_map={
+        'Flights': 'blue',
+        'Rolling_Avg': 'green'
+    }
+)
+
 #Forcasting the time series for number of flights
 
 monthly_flights = dt.groupby('Fly_date')['Flights'].sum().reset_index()
@@ -83,7 +101,6 @@ plt.title('Holt-Winters Forecast for Passengers')
 
 # Display the plots in Streamlit
 st.subheader("Airline A Monthly Passengers with Rolling Average (3 months)")
-st.plotly_chart(fig1)
 st.subheader("Airline A Passenger Forecast")
 st.pyplot(plt)
 plt.clf()
