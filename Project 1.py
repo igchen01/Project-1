@@ -136,5 +136,5 @@ for _, row in airports.iterrows():
     ).add_to(m)
 
 map_html = m._repr_html_()
-components.html(map_html, height=500, width=700)
+#components.html(map_html, height=500, width=700)
 html(map_html, height=500, width=700)
